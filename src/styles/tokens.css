@@ -1,0 +1,130 @@
+/*
+ * Kembali Basah design tokens.
+ * Contrast ratios are computed (WCAG 2.x relative luminance) and listed in
+ * docs/design-guidelines.md. Change a value here, re-run the check there.
+ */
+:root {
+  /* Peat: text and dark surfaces */
+  --kb-peat-950: #1a130e;
+  --kb-peat-900: #251b14;
+  --kb-peat-800: #33261c;
+  --kb-peat-700: #4a3628;
+  --kb-peat-500: #7c6049;
+  --kb-peat-300: #b39c86;
+
+  /* Paper: light surfaces */
+  --kb-paper-50: #fbf7ef;
+  --kb-paper-100: #f3ecdd;
+  --kb-paper-200: #e5dac4;
+
+  /* Tannin: water (the amber of blackwater peat streams) */
+  --kb-tannin-700: #8a4f18;
+  --kb-tannin-600: #a5611f;
+  --kb-tannin-500: #c27a2c;
+  --kb-tannin-300: #e2b47c;
+
+  /* Moss: rewetted and recovering. Means recovery only. */
+  --kb-moss-800: #2f4423;
+  --kb-moss-700: #3d5a2c;
+  --kb-moss-500: #6b8f47;
+  --kb-moss-300: #a9c183;
+  --kb-moss-100: #e2ead2;
+
+  /* Ember: fire only. Never decoration, never a generic accent. */
+  --kb-ember-600: #c93d0b;
+  --kb-ember-500: #ee5b1d;
+  --kb-ember-300: #ff9b63;
+
+  /* Semantic: light theme (default) */
+  --kb-bg: var(--kb-paper-50);
+  --kb-bg-raised: var(--kb-paper-100);
+  --kb-bg-sunken: var(--kb-paper-200);
+  --kb-text: var(--kb-peat-950);
+  --kb-text-muted: var(--kb-peat-700);
+  --kb-text-subtle: var(--kb-peat-500);
+  --kb-link: var(--kb-tannin-700);
+  --kb-border: var(--kb-paper-200);
+  --kb-action-bg: var(--kb-moss-700);
+  --kb-action-text: var(--kb-paper-50);
+  --kb-water: var(--kb-tannin-600);
+  --kb-recovery: var(--kb-moss-700);
+  --kb-fire: var(--kb-ember-600);
+  --kb-focus: var(--kb-tannin-700);
+
+  /* Type */
+  --kb-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --kb-font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --kb-font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --kb-text-xs: 0.8125rem; /* 13 */
+  --kb-text-sm: 0.9375rem; /* 15 */
+  --kb-text-base: 1.0625rem; /* 17 */
+  --kb-text-lg: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
+  --kb-text-xl: clamp(1.4rem, 1.2rem + 0.9vw, 1.875rem);
+  --kb-text-2xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.75rem);
+  --kb-text-3xl: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
+  --kb-text-4xl: clamp(2.75rem, 1.7rem + 4.6vw, 6rem);
+
+  --kb-measure: 66ch;
+
+  /* Space: 4px base */
+  --kb-space-1: 0.25rem;
+  --kb-space-2: 0.5rem;
+  --kb-space-3: 0.75rem;
+  --kb-space-4: 1rem;
+  --kb-space-5: 1.5rem;
+  --kb-space-6: 2rem;
+  --kb-space-7: 3rem;
+  --kb-space-8: 4.5rem;
+  --kb-space-9: 7rem;
+
+  /* Shape */
+  --kb-radius-sm: 6px;
+  --kb-radius-md: 12px;
+  --kb-radius-lg: 20px;
+  --kb-radius-pill: 999px;
+
+  /* Layout */
+  --kb-gutter: 1rem; /* 16px on phones, as a minimum */
+  --kb-content: 72rem;
+  --kb-target: 44px; /* preferred touch target; 24px is the hard minimum */
+
+  /* Motion: water settles, fire sharpens */
+  --kb-ease-water: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --kb-ease-fire: cubic-bezier(0.2, 0, 0, 1);
+  --kb-dur-fast: 150ms;
+  --kb-dur-base: 300ms;
+  --kb-dur-slow: 700ms;
+}
+
+/* Dark theme: the "night map" surfaces used for Fire Watch */
+[data-theme="dark"] {
+  --kb-bg: var(--kb-peat-950);
+  --kb-bg-raised: var(--kb-peat-900);
+  --kb-bg-sunken: var(--kb-peat-800);
+  --kb-text: var(--kb-paper-50);
+  --kb-text-muted: var(--kb-paper-200);
+  --kb-text-subtle: var(--kb-peat-300);
+  --kb-link: var(--kb-tannin-300);
+  --kb-border: var(--kb-peat-700);
+  --kb-action-bg: var(--kb-moss-300);
+  --kb-action-text: var(--kb-peat-950);
+  --kb-water: var(--kb-tannin-300);
+  --kb-recovery: var(--kb-moss-300);
+  --kb-fire: var(--kb-ember-500);
+  --kb-focus: var(--kb-tannin-300);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --kb-gutter: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --kb-dur-fast: 0.01ms;
+    --kb-dur-base: 0.01ms;
+    --kb-dur-slow: 0.01ms;
+  }
+}

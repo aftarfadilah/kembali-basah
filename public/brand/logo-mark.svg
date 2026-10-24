@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kembali Basah">
+  <title>Kembali Basah</title>
+  <path d="M32 5C32 5 13 25.5 13 40a19 19 0 0 0 38 0C51 25.5 32 5 32 5Z" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M19 42.5q3.25-3.5 6.5 0t6.5 0 6.5 0 6.5 0" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="32" cy="29" r="3.6" fill="var(--kb-ember, #EE5B1D)"/>
+</svg>
