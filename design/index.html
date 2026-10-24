@@ -50,15 +50,13 @@
   .dry{background:radial-gradient(90% 70% at 20% 10%,var(--kb-paper-100),var(--kb-tannin-300) 120%);color:var(--kb-peat-950)}
   .dry em{color:var(--kb-ember-600)}
   .dry .kicker{color:var(--kb-peat-700)}
-  .wet{background:radial-gradient(80% 80% at 70% 90%,var(--kb-peat-800),var(--kb-peat-950) 70%);color:var(--kb-paper-50);clip-path:circle(var(--r) at var(--x) var(--y));will-change:clip-path}
+  .wet{background:radial-gradient(80% 80% at 70% 90%,var(--kb-peat-800),var(--kb-peat-950) 70%);color:var(--kb-paper-50);clip-path:inset(62% 0 0 0);will-change:clip-path}
   .wet em{color:var(--kb-moss-300)}
   .wet .kicker{color:var(--kb-tannin-300)}
-  .cracks,.rings{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .cracks,.lines,.edge{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .edge{z-index:4}
   .sparks span{position:absolute;bottom:-10px;width:7px;height:7px;border-radius:50%;background:var(--kb-ember-500);box-shadow:0 0 14px 3px rgb(238 91 29 / .6);opacity:0;animation:rise var(--d,9s) var(--dl,0s) linear infinite}
   @keyframes rise{0%{transform:translate(0,0) scale(1);opacity:0}8%{opacity:1}100%{transform:translate(var(--dx,30px),-105vh) scale(.3);opacity:0}}
-  .ripple{position:absolute;left:var(--x);top:var(--y);width:0;height:0;pointer-events:none}
-  .ripple i{position:absolute;left:0;top:0;width:min(46vmax,540px);aspect-ratio:1;margin:calc(min(46vmax,540px)/-2);border-radius:50%;border:1px solid var(--kb-tannin-300);opacity:0;animation:ripple 5s var(--dl) var(--kb-ease-water) infinite}
-  @keyframes ripple{0%{transform:scale(.05);opacity:.7}100%{transform:scale(1);opacity:0}}
 
   .hero-ui{position:absolute;z-index:5;left:0;right:0;bottom:0;padding:0 clamp(1rem,4vw,3.5rem) clamp(1.25rem,3vh,2rem);display:grid;gap:1rem;align-items:end;pointer-events:none}
   .hero-ui>*{pointer-events:auto}
@@ -133,7 +131,7 @@
 
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .sparks span,.ripple i{animation:none!important}
+    .sparks span{animation:none!important}
     .sparks span{opacity:.9;bottom:auto}
     .w{opacity:1;transition:none}.w.em{opacity:1}
     .statement,.section{height:auto}.statement .pin,.section .pin{position:static;height:auto;min-height:100svh}
@@ -171,11 +169,12 @@
   </div>
 
   <div class="layer wet" aria-hidden="true">
-    <svg class="rings" id="rings" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"></svg>
-    <div class="ripple"><i style="--dl:0s"></i><i style="--dl:1.6s"></i><i style="--dl:3.2s"></i></div>
+    <svg class="lines" id="lines" viewBox="0 0 1600 900" preserveAspectRatio="none"></svg>
     <p class="kicker mono">Gambut basah · air di dalam tanah</p>
     <h2 class="serif"><span>Gambut basah,</span><span><em>api padam.</em></span></h2>
   </div>
+
+  <svg class="edge" id="edge" aria-hidden="true"><path id="edge-p" fill="none" stroke="#e2b47c" stroke-width="2.5" stroke-linejoin="round"/></svg>
 
   <div class="hero-ui">
     <div class="cta">
@@ -187,7 +186,7 @@
       <input id="soak" type="range" min="0" max="100" value="0" aria-describedby="soak-out">
       <output id="soak-out" for="soak" class="mono" style="min-width:3.2ch">0%</output>
     </div>
-    <p class="hint" aria-hidden="true">Gerakkan kursor · tekan untuk membanjiri</p>
+    <p class="hint" aria-hidden="true">Tarik air dengan kursor · tekan untuk membanjiri</p>
   </div>
 </section>
 
@@ -274,7 +273,7 @@
   function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
   function clamp(v,a,b){return Math.min(b,Math.max(a,v))}
 
-  /* ---- Hero art: cracked earth, embers, moss rings ---- */
+  /* ---- Hero art: cracked earth, embers, blackwater lines ---- */
   var R=rng(11),cr=document.getElementById('cracks');
   for(var i=0;i<46;i++){
     var x=R()*1600,y=R()*900,d='M'+x+' '+y,a=R()*6.28;
@@ -287,35 +286,45 @@
     e.style.left=(R()*100)+'%';e.style.setProperty('--d',(7+R()*8).toFixed(1)+'s');e.style.setProperty('--dl',(-R()*14).toFixed(1)+'s');e.style.setProperty('--dx',((R()-.5)*160).toFixed(0)+'px');
     if(reduce)e.style.top=(R()*85)+'%';
     sp.appendChild(e)}
-  var rg=document.getElementById('rings');
-  for(var k=0;k<38;k++){rg.appendChild(el('circle',{cx:R()*1600,cy:R()*900,r:5+R()*5,fill:'none',stroke:'#a9c183','stroke-width':2.2,opacity:.35+R()*.5}))}
+  var ln=document.getElementById('lines');
+  for(var k=0;k<16;k++){var ly=40+k*54;ln.appendChild(el('path',{d:'M0 '+ly+' q100 -14 200 0 t200 0 t200 0 t200 0 t200 0 t200 0 t200 0 t200 0',fill:'none',stroke:'#4a3628','stroke-opacity':.55,'stroke-width':1.2}))}
 
-  /* ---- Hero reveal ---- */
+  /* ---- Hero: a water surface that rises; the pointer pulls it up ---- */
   var hero=document.getElementById('top'),soak=document.getElementById('soak'),sOut=document.getElementById('soak-out');
-  var W=0,H=0,cover=1,base=1;
-  function size(){var b=hero.getBoundingClientRect();W=b.width;H=b.height;cover=Math.hypot(W,H);base=Math.min(W,H)*(W<700?.34:.3)}
+  var wetEl=hero.querySelector('.wet'),edge=document.getElementById('edge'),edgeP=document.getElementById('edge-p');
+  var W=0,H=0,STEP=24;
+  function size(){var b=hero.getBoundingClientRect();W=b.width;H=b.height;edge.setAttribute('viewBox','0 0 '+W+' '+H)}
   size();addEventListener('resize',size);
-  var tx=W*.5,ty=H*.5,x=tx,y=ty,r=0,pointer=false,pressed=false,last=0,vis=true,t0=performance.now();
-  function level(){return soak.value/100}
-  function target(now){
-    var lv=level()*cover*1.05,pr=0;
-    if(!reduce){pr=pointer?(pressed?base*1.9:base):base*.9}
-    return Math.max(lv,pr);
+  var px=-1e4,tpx=-1e4,bump=0,tb=0,lvl=0,pressed=false,vis=true,t0=performance.now();
+  function levelTarget(){
+    var sl=soak.value/100;
+    if(reduce)return sl;
+    var rest=.2+.06*Math.sin((performance.now()-t0)/1700);   // breathing waterline
+    return Math.max(sl,rest+(pressed?.55:0));
   }
-  function apply(){hero.style.setProperty('--x',x.toFixed(1)+'px');hero.style.setProperty('--y',y.toFixed(1)+'px');hero.style.setProperty('--r',r.toFixed(1)+'px')}
+  function draw(t){
+    var base=H*(1-lvl),pts=[],top=[],sig=Math.max(W*.2,180);
+    for(var x=0;x<=W+STEP;x+=STEP){
+      var g=Math.exp(-Math.pow((x-px)/sig,2));
+      var y=base-bump*g+Math.sin(x/70+t*1.3)*5+Math.sin(x/190-t*.7)*9;
+      pts.push(x.toFixed(1)+'px '+y.toFixed(1)+'px');top.push((top.length?'L':'M')+x.toFixed(1)+' '+y.toFixed(1));
+    }
+    wetEl.style.clipPath='polygon('+pts.join(',')+','+(W+STEP)+'px '+H+'px,0 '+H+'px)';
+    edgeP.setAttribute('d',top.join(' '));
+  }
   function frame(now){
-    if(!vis){return}
-    if(!pointer&&!reduce){var t=(now-t0)/1000;tx=W*(.5+.3*Math.sin(t*.42));ty=H*(.42+.18*Math.sin(t*.6+1))}
-    var k=reduce?1:.09;
-    x+=(tx-x)*k;y+=(ty-y)*k;r+=(target(now)-r)*(reduce?1:.07);
-    apply();requestAnimationFrame(frame);
+    if(!vis)return;
+    var t=(now-t0)/1000;
+    lvl+=(levelTarget()-lvl)*.05;px+=(tpx-px)*.18;bump+=(tb-bump)*.1;
+    draw(t);requestAnimationFrame(frame);
   }
-  hero.addEventListener('pointermove',function(e){var b=hero.getBoundingClientRect();tx=e.clientX-b.left;ty=e.clientY-b.top;pointer=true;clearTimeout(hero._t);hero._t=setTimeout(function(){pointer=false;pressed=false},3200)});
-  hero.addEventListener('pointerdown',function(e){if(e.target.closest('.hero-ui'))return;pressed=true;var b=hero.getBoundingClientRect();tx=e.clientX-b.left;ty=e.clientY-b.top;pointer=true});
+  function setPtr(e){var b=hero.getBoundingClientRect();tpx=e.clientX-b.left;tb=Math.min(H*.3,H*(1-lvl)*.5+30);clearTimeout(hero._t);hero._t=setTimeout(function(){tb=0},2600)}
+  hero.addEventListener('pointermove',setPtr);
+  hero.addEventListener('pointerdown',function(e){if(e.target.closest('.hero-ui'))return;pressed=true;setPtr(e)});
   addEventListener('pointerup',function(){pressed=false});
-  hero.addEventListener('pointerleave',function(){pointer=false;pressed=false});
-  soak.addEventListener('input',function(){sOut.textContent=soak.value+'%';if(reduce){r=target();apply()}});
-  if(reduce){soak.value=35;sOut.textContent='35%';x=tx=W*.5;y=ty=H*.5;r=target();apply()}
+  hero.addEventListener('pointerleave',function(){tb=0;pressed=false});
+  soak.addEventListener('input',function(){sOut.textContent=soak.value+'%';if(reduce){lvl=levelTarget();draw(0)}});
+  if(reduce){soak.value=40;sOut.textContent='40%';lvl=levelTarget();draw(0)}
   else{
     new IntersectionObserver(function(en){var v=en[0].isIntersecting;if(v&&!vis){vis=true;requestAnimationFrame(frame)}vis=v},{threshold:0}).observe(hero);
     requestAnimationFrame(frame);
