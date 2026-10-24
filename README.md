@@ -13,6 +13,7 @@
 | [`docs/brand-profile.md`](docs/brand-profile.md) | Idea, mission, programmes, audiences, personality, voice, trust rules |
 | [`docs/design-guidelines.md`](docs/design-guidelines.md) | Colour (with computed contrast), type, logo, layout, motion, components, accessibility, performance budget, i18n |
 | [`src/styles/tokens.css`](src/styles/tokens.css) | Design tokens, light and dark |
+| [`design/index.html`](design/index.html) | Static concept page of the visual direction (open in a browser; uses the tokens) |
 | [`public/brand/logo-mark.svg`](public/brand/logo-mark.svg) | The mark |
 
 ## Plan

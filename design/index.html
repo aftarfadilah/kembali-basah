@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kembali Basah — Gambut basah, api padam</title>
+<meta name="description" content="Konsep yayasan restorasi gambut. Proyek konsep, bukan organisasi nyata.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--kb-peat-950);color:var(--kb-paper-50);font:var(--kb-text-base)/1.6 var(--kb-font-body);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--kb-tannin-300);outline-offset:2px}
+  .wrap{max-width:var(--kb-content);margin-inline:auto;padding-inline:var(--kb-gutter)}
+  .skip{position:absolute;left:-999px}.skip:focus{left:var(--kb-gutter);top:8px;background:var(--kb-paper-50);color:var(--kb-peat-950);padding:.5rem 1rem;border-radius:var(--kb-radius-sm);z-index:10}
+  .eyebrow{font:500 var(--kb-text-xs)/1.4 var(--kb-font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--kb-peat-300)}
+  .display{font-family:var(--kb-font-display);font-variation-settings:"opsz" 144;font-weight:350;letter-spacing:-.02em;line-height:1.02;margin:0}
+  .display em{font-style:italic;color:var(--kb-tannin-300);font-weight:300}
+
+  /* Concept notice */
+  .notice{background:var(--kb-peat-900);border-bottom:1px solid var(--kb-peat-800);font-size:var(--kb-text-xs);color:var(--kb-peat-300)}
+  .notice .wrap{display:flex;gap:.75rem;padding-block:.6rem;align-items:center}
+  .notice b{font:500 var(--kb-text-xs) var(--kb-font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--kb-paper-200)}
+
+  /* Nav */
+  header.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:1.25rem}
+  .brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;font:400 1.35rem var(--kb-font-display);color:var(--kb-paper-50)}
+  .brand svg{height:2rem;width:2rem;color:var(--kb-paper-50)}
+  nav ul{display:none;list-style:none;margin:0;padding:0;gap:2rem}
+  nav a{text-decoration:none;font-size:var(--kb-text-sm);color:var(--kb-paper-200)}
+  nav a:hover{color:var(--kb-tannin-300)}
+  .lang{font:500 var(--kb-text-xs) var(--kb-font-mono);border:1px solid var(--kb-peat-700);border-radius:var(--kb-radius-pill);padding:.5rem .9rem;color:var(--kb-paper-200);text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
+  @media(min-width:56rem){nav ul{display:flex}}
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--kb-peat-800)}
+  .hero .field{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 70% 100%,transparent 20%,var(--kb-peat-950) 85%),linear-gradient(180deg,var(--kb-peat-950) 0,transparent 30%);z-index:1;pointer-events:none}
+  .hero{min-height:min(70vh,40rem);display:flex}.hero .wrap{position:relative;z-index:2;align-self:flex-end;width:100%;padding-block:clamp(4rem,10vw,9rem) clamp(3rem,6vw,5rem);display:grid;gap:3rem}
+  .hero-top{display:grid;gap:2rem}
+  .hero h1{font-size:var(--kb-text-4xl);max-width:14ch}
+  .hero .side{max-width:34ch;color:var(--kb-paper-200);font-size:var(--kb-text-lg)}
+  @media(min-width:56rem){.hero-top{grid-template-columns:1fr 1.6fr;align-items:end}.hero h1{justify-self:end;text-align:right;max-width:12ch}}
+  .actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;min-height:var(--kb-target);padding:.6rem 1.4rem;border-radius:var(--kb-radius-pill);font:600 var(--kb-text-sm) var(--kb-font-body);text-decoration:none;transition:transform var(--kb-dur-base) var(--kb-ease-water),background var(--kb-dur-base) var(--kb-ease-water)}
+  .btn-primary{background:var(--kb-moss-300);color:var(--kb-peat-950)}
+  .btn-primary:hover{background:var(--kb-moss-100);transform:translateY(-1px)}
+  .btn-ghost{border:1px solid var(--kb-peat-500);color:var(--kb-paper-50)}
+  .btn-ghost:hover{border-color:var(--kb-tannin-300);color:var(--kb-tannin-300)}
+
+  /* Legend */
+  .legend{display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;padding-top:1.5rem;border-top:1px solid var(--kb-peat-800);font-size:var(--kb-text-xs);color:var(--kb-peat-300)}
+  .legend span{display:inline-flex;align-items:center;gap:.5rem;color:var(--kb-paper-200)}
+  .dot-fire{width:10px;height:10px;border-radius:50%;background:var(--kb-ember-500);box-shadow:0 0 10px 2px rgb(238 91 29 / .55)}
+  .dot-wet{width:10px;height:10px;border-radius:50%;border:2px solid var(--kb-moss-300)}
+  .legend .src{margin-left:auto;font-family:var(--kb-font-mono)}
+
+  /* Sections */
+  section{padding-block:clamp(4rem,9vw,7rem)}
+  .sec-head{display:grid;gap:1rem;margin-bottom:3rem}
+  .sec-head h2{font-size:var(--kb-text-2xl);max-width:20ch}
+  @media(min-width:56rem){.sec-head{grid-template-columns:1fr 2fr;gap:3rem;align-items:start}}
+
+  /* Rewet */
+  .rewet{background:var(--kb-peat-900);border-block:1px solid var(--kb-peat-800)}
+  .stage{position:relative;border:1px solid var(--kb-peat-700);border-radius:var(--kb-radius-lg);background:var(--kb-peat-950);overflow:hidden}
+  .stage svg{display:block;width:100%;height:auto}
+  .ctrl{display:grid;gap:1rem;padding:1.5rem;border-top:1px solid var(--kb-peat-800);align-items:center}
+  @media(min-width:48rem){.ctrl{grid-template-columns:auto 1fr auto;gap:2rem}}
+  .ctrl label{font:500 var(--kb-text-sm) var(--kb-font-body)}
+  .ctrl output{font:500 var(--kb-text-sm) var(--kb-font-mono);color:var(--kb-moss-300);min-width:16ch}
+  input[type=range]{width:100%;accent-color:var(--kb-moss-300);height:44px;cursor:pointer}
+  .tag-ex{display:inline-block;font:500 var(--kb-text-xs) var(--kb-font-mono);letter-spacing:.08em;text-transform:uppercase;border:1px dashed var(--kb-tannin-300);color:var(--kb-tannin-300);border-radius:var(--kb-radius-sm);padding:.1rem .5rem}
+  .note{color:var(--kb-peat-300);font-size:var(--kb-text-xs);margin:1rem 0 0}
+
+  /* Programmes: editorial rows, not cards */
+  .prog{list-style:none;margin:0;padding:0;border-top:1px solid var(--kb-peat-700)}
+  .prog li{display:grid;gap:.5rem 2rem;padding:2rem 0;border-bottom:1px solid var(--kb-peat-700);transition:background var(--kb-dur-base) var(--kb-ease-water)}
+  .prog li:hover{background:linear-gradient(90deg,rgb(226 180 124 / .06),transparent)}
+  .prog .n{font:500 var(--kb-text-xs) var(--kb-font-mono);color:var(--kb-tannin-300)}
+  .prog h3{font:350 var(--kb-text-xl)/1.15 var(--kb-font-display);margin:0}
+  .prog h3 small{display:block;font:400 var(--kb-text-sm) var(--kb-font-body);color:var(--kb-peat-300);margin-top:.35rem}
+  .prog p{margin:0;color:var(--kb-paper-200);max-width:52ch}
+  @media(min-width:56rem){.prog li{grid-template-columns:4rem 1.2fr 1.6fr;align-items:baseline}}
+
+  /* Beliefs */
+  .pillars{display:grid;gap:2.5rem}
+  @media(min-width:56rem){.pillars{grid-template-columns:repeat(4,1fr);gap:2rem}}
+  .pillars h3{font:350 var(--kb-text-lg)/1.25 var(--kb-font-display);margin:.75rem 0 .5rem}
+  .pillars p{margin:0;color:var(--kb-peat-300);font-size:var(--kb-text-sm)}
+  .pillars svg{width:32px;height:32px;color:var(--kb-tannin-300)}
+
+  /* Closing */
+  .close{background:var(--kb-paper-50);color:var(--kb-peat-950);text-align:center}
+  .close .display{font-size:var(--kb-text-3xl);max-width:16ch;margin-inline:auto}
+  .close .display em{color:var(--kb-tannin-700)}
+  .close p{max-width:46ch;margin:1.5rem auto 0;color:var(--kb-peat-700)}
+  .close .btn-primary{background:var(--kb-moss-700);color:var(--kb-paper-50)}
+  .close .btn-primary:hover{background:var(--kb-moss-800)}
+  .close .btn-ghost{border-color:var(--kb-peat-500);color:var(--kb-peat-950)}
+  .close .actions{justify-content:center}
+  .close :focus-visible{outline-color:var(--kb-tannin-700)}
+
+  footer{background:var(--kb-peat-950);padding-block:3rem;font-size:var(--kb-text-sm);color:var(--kb-peat-300)}
+  footer .wrap{display:grid;gap:1.5rem}
+  footer strong{color:var(--kb-paper-200)}
+  @media(min-width:56rem){footer .wrap{grid-template-columns:1fr 1fr}}
+
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pulse{animation:none!important}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  .pulse{animation:pulse 2.4s ease-in-out infinite}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Lewati ke konten</a>
+
+<div class="notice"><div class="wrap"><b>Proyek konsep</b><span>Kembali Basah adalah yayasan fiktif, studi kasus frontend. Tidak menerima donasi.</span></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5C32 5 13 25.5 13 40a19 19 0 0 0 38 0C51 25.5 32 5 32 5Z" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/><path d="M19 42.5q3.25-3.5 6.5 0t6.5 0 6.5 0 6.5 0" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="29" r="3.6" fill="var(--kb-ember-500)"/></svg>
+    Kembali Basah
+  </a>
+  <nav aria-label="Utama"><ul>
+    <li><a href="#rewet">Rewet</a></li><li><a href="#program">Program</a></li><li><a href="#prinsip">Prinsip</a></li><li><a href="#pantau">Pantau Api</a></li>
+  </ul></nav>
+  <a class="lang" href="#" lang="en" hreflang="en">ID / EN</a>
+</div></header>
+
+<main id="main">
+<div class="hero">
+  <svg class="field" id="field" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+        <p class="eyebrow">Restorasi gambut · Pencegahan api</p>
+        <p class="side">Gambut kering mudah terbakar. Gambut basah hampir tidak. Kami menjaga air tetap di dalam tanah.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#rewet">Lihat cara kerjanya</a>
+          <a class="btn btn-ghost" href="#pantau">Pantau Api</a>
+        </div>
+      </div>
+      <h1 class="display">Gambut basah,<br><em>api padam.</em></h1>
+    </div>
+    <div class="legend" role="group" aria-label="Legenda">
+      <span><i class="dot-fire" aria-hidden="true"></i> Titik api (terisi, menyala)</span>
+      <span><i class="dot-wet" aria-hidden="true"></i> Sudah dibasahi kembali (cincin)</span>
+      <span class="tag-ex">Contoh</span>
+      <span class="src">Ilustrasi · bukan data NASA FIRMS</span>
+    </div>
+  </div>
+</div>
+
+<section class="rewet" id="rewet"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">01 · Rewet</p>
+    <div>
+      <h2 class="display">Blokir satu kanal. <em>Basahi satu desa.</em></h2>
+    </div>
+  </div>
+  <div class="stage">
+    <svg id="stage" viewBox="0 0 1200 520" role="img" aria-labelledby="stage-t stage-d">
+      <title id="stage-t">Ilustrasi Rewet</title>
+      <desc id="stage-d">Titik api berubah menjadi cincin hijau saat penggeser digeser ke kanan. Ini ilustrasi konsep.</desc>
+    </svg>
+    <div class="ctrl">
+      <label for="wet">Tingkat pembasahan</label>
+      <input id="wet" type="range" min="0" max="100" value="0" aria-describedby="wet-out">
+      <output id="wet-out" for="wet">0 titik api · 0 basah</output>
+    </div>
+  </div>
+  <p class="note"><span class="tag-ex">Contoh</span> Titik dibuat acak untuk ilustrasi. Versi akhir memakai deteksi VIIRS S-NPP dari NASA FIRMS, dengan tanggal dan sumber.</p>
+</div></section>
+
+<section id="program"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">02 · Program</p>
+    <h2 class="display">Empat cara menjaga air <em>tetap di tanah.</em></h2>
+  </div>
+  <ol class="prog">
+    <li><span class="n">01</span><h3>Sekat Kanal<small>Canal blocking</small></h3><p>Membangun sekat di kanal drainase agar air tertahan di dalam gambut.</p></li>
+    <li><span class="n">02</span><h3>Pantau Api<small>Fire watch</small></h3><p>Pemantauan titik panas dari satelit, terbuka untuk siapa saja, dari data NASA FIRMS.</p></li>
+    <li><span class="n">03</span><h3>Regu Siaga Api<small>Village fire teams</small></h3><p>Melatih dan melengkapi regu desa untuk mencegah dan menanggapi api sejak dini.</p></li>
+    <li><span class="n">04</span><h3>Tani Basah<small>Wet-peat farming</small></h3><p>Mendukung tanaman yang tumbuh di gambut basah, sehingga warga tidak perlu mengeringkannya.</p></li>
+  </ol>
+</div></section>
+
+<section id="prinsip" style="border-top:1px solid var(--kb-peat-800)"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">03 · Prinsip</p>
+    <h2 class="display">Kami tunjukkan <em>kerja kami.</em></h2>
+  </div>
+  <div class="pillars">
+    <div><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M16 3S6 14 6 21a10 10 0 0 0 20 0C26 14 16 3 16 3Z"/><path d="M10 21q3-3 6 0t6 0"/></svg><h3>Gambut basah tidak terbakar</h3><p>Penyebabnya, dalam satu kalimat.</p></div>
+    <div><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 22q6-10 12-4t12-8"/><path d="M4 27h24"/></svg><h3>Mencegah lebih baik daripada memadamkan</h3><p>Kami bekerja di hulu.</p></div>
+    <div><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="6" width="22" height="20" rx="3"/><path d="M5 12h22M12 12v14"/></svg><h3>Data terbuka, sumber disebut</h3><p>Angka publik, metode jelas.</p></div>
+    <div><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="16" cy="11" r="4"/><path d="M7 27c0-5 4-8 9-8s9 3 9 8"/></svg><h3>Warga menjaga tanah yang mereka tinggali</h3><p>Desa yang memimpin.</p></div>
+  </div>
+</div></section>
+
+<section class="close" id="pantau"><div class="wrap">
+  <p class="eyebrow" style="color:var(--kb-peat-500)">Dukung</p>
+  <h2 class="display">Dukung <em>satu sekat kanal.</em></h2>
+  <p>Ini demonstrasi antarmuka. Tidak ada pembayaran yang diproses dan tidak ada data kartu yang diminta.</p>
+  <div class="actions"><a class="btn btn-primary" href="#">Coba alur donasi (demo)</a><a class="btn btn-ghost" href="#">Buka Pantau Api</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p><strong>Proyek konsep.</strong> Kembali Basah adalah yayasan fiktif yang dibuat oleh <a href="https://aftarfadilah.com">Aftar Fadilah</a> sebagai studi kasus frontend. Bukan organisasi nyata dan tidak berafiliasi dengan lembaga mana pun.</p>
+  <p>Data titik api pada versi akhir: NASA FIRMS, VIIRS S-NPP, dengan waktu pembaruan ditampilkan.</p>
+</div></footer>
+
+<script>
+(function(){
+  // Seeded RNG so the illustrative field is stable between loads.
+  function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  var NS='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+
+  // Hero: topographic contours + faint ember field
+  var f=document.getElementById('field'),r=rng(7);
+  for(var i=0;i<14;i++){
+    var y=80+i*46,d='M-20 '+y;
+    for(var x=0;x<=1240;x+=80){d+=' Q'+(x+40)+' '+(y+Math.sin(x/170+i*.6)*26+Math.cos(i)*8)+' '+(x+80)+' '+(y+Math.sin((x+80)/170+i*.6)*18)}
+    f.appendChild(el('path',{d:d,fill:'none',stroke:'var(--kb-tannin-300)','stroke-opacity':.10+(i%3)*.03,'stroke-width':1}));
+  }
+  for(var j=0;j<46;j++){
+    var cx=40+r()*1120,cy=380+r()*290,hot=r()>.55;
+    if(hot){f.appendChild(el('circle',{cx:cx,cy:cy,r:3.5,fill:'var(--kb-ember-500)',opacity:1,class:'pulse',style:'filter:drop-shadow(0 0 6px rgb(238 91 29/.7))'}))}
+    else{f.appendChild(el('circle',{cx:cx,cy:cy,r:4,fill:'none',stroke:'var(--kb-moss-300)','stroke-width':1.5,opacity:.9}))}
+  }
+
+  // Rewet stage
+  var s=document.getElementById('stage'),R=rng(21),pts=[];
+  for(var c=0;c<9;c++){var y2=60+c*50;s.appendChild(el('path',{d:'M0 '+y2+' C300 '+(y2-30)+' 600 '+(y2+30)+' 1200 '+(y2-10),fill:'none',stroke:'var(--kb-peat-700)','stroke-width':1}))}
+  for(var k=0;k<90;k++){
+    var px=40+R()*1120,py=30+R()*460,c2=el('circle',{cx:px,cy:py,r:5});s.appendChild(c2);pts.push({e:c2,t:R()});
+  }
+  var inp=document.getElementById('wet'),out=document.getElementById('wet-out');
+  function draw(){
+    var v=inp.value/100,wet=0;
+    pts.forEach(function(p){
+      if(p.t<v){wet++;p.e.setAttribute('fill','none');p.e.setAttribute('stroke','var(--kb-moss-300)');p.e.setAttribute('stroke-width','2');p.e.style.filter='';p.e.setAttribute('r','6')}
+      else{p.e.setAttribute('fill','var(--kb-ember-500)');p.e.setAttribute('stroke','none');p.e.style.filter='drop-shadow(0 0 5px rgb(238 91 29/.7))';p.e.setAttribute('r','5')}
+    });
+    out.textContent=(pts.length-wet)+' titik api · '+wet+' basah (contoh)';
+  }
+  inp.addEventListener('input',draw);draw();
+})();
+</script>
+</body>
+</html>
